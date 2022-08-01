@@ -18,3 +18,10 @@ export const postCreateValidation = [
     body('tags', 'incorrect name format').optional().isArray(),
     body('img', 'incorrect img url format').optional().isURL()
 ]
+
+export const postPatchValidation = [
+    body('title', 'incorrect title format', '2').optional().isLength({min: 2, max: 64}).isString(),
+    body('text', 'incorrect text format').optional().isLength({min: 8, max: 65536}).isString(),
+    body('tags', 'incorrect name format').optional().isArray(),
+    body('img', 'incorrect img url format').optional().isURL()
+]

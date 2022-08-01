@@ -1,21 +1,14 @@
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
-import { validationResult } from 'express-validator'
-
 import config from '../config.js'
 
 import postModel from '../modeles/posts.js'
-import { postCreateValidation } from '../validations.js'
+import { postCreateValidation, postPatchValidation } from '../validations.js'
 import authCheck from '../utils/authCheck.js'
+import validate from '../utils/validationErrorsHandle.js'
 
 
 export default (app) => {
-    app.post('/posts', authCheck, postCreateValidation, async (req, res) => {
+    app.post('/posts', postCreateValidation, validate, authCheck, async (req, res) => {
         try {
-            let vErr = validationResult(req)
-            if (!vErr.isEmpty()) {
-                return res.status(400).json(vErr.array())
-            }
     
             let doc = new postModel({
                 title: req.body.title,
@@ -115,7 +108,7 @@ export default (app) => {
         }
     })
 
-    app.patch('/posts/:id', authCheck, async (req, res) => {
+    app.patch('/posts/:id', postPatchValidation, validate, authCheck, async (req, res) => {
         try {
             let postId = req.params.id
 

@@ -8,8 +8,11 @@ mongoose
     .connect(config.db.url)
     .then(() => {console.log('[ + ] db')})
     .catch(() => {console.log('[ - ] db')})
+
 const app = express()
+
 app.use(express.json())
+app.use('/med', express.static('med'))
 
 
 routes(app)

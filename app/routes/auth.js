@@ -1,21 +1,17 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { validationResult } from 'express-validator'
 
 import config from '../config.js'
 
 import userModel from '../modeles/users.js'
 import { signupValidation, loginValidation } from '../validations.js'
 import authCheck from '../utils/authCheck.js'
+import validate from '../utils/validationErrorsHandle.js'
 
 
 export default (app) => {
-    app.post('/auth/signup', signupValidation, async (req, res) => {
+    app.post('/auth/signup', signupValidation, validate, async (req, res) => {
         try {
-            let vErr = validationResult(req)
-            if (!vErr.isEmpty()) {
-                return res.status(400).json(vErr.array())
-            }
     
             let password = req.body.password
             let salt = await bcrypt.genSalt(10)
@@ -57,12 +53,8 @@ export default (app) => {
     })
 
 
-    app.post('/auth/login', loginValidation, async (req, res) => {
+    app.post('/auth/login', loginValidation, validate, async (req, res) => {
         try {
-            let vErr = validationResult(req)
-            if (!vErr.isEmpty()) {
-                return res.status(400).json(vErr.array())
-            }
 
             let user = await userModel.findOne({ email: req.body.email })
             if (!user) {
