@@ -14,10 +14,10 @@ app.use(express.json())
 
 routes(app)
 
-app.listen(8080, (err) => {
+app.listen(config.server.port, config.server.host, (err) => {
     if (err) {
         return console.log(err)
     }
 
-    console.log('[ + ] server : 8080')
+    console.log(`[ + ] server > ${config.server.host}:${config.server.port}`)
 })

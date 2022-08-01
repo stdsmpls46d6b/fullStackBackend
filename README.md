@@ -21,9 +21,11 @@ npm i
 #### config.js
 ```node
 export default {
-    db: {
-        url: 'mongodb://<user>:<password>@<addr>:<port>/<collection>'
+    db: { url: 'mongodb://<user>:<password>@<addr>:<port>/<collection>' },
+    server: {
+        host: 'localhost',
+        port: 8080
     },
-    jwtToken: <jwt token>
+    jwtToken: 'some secret token'
 }
 ```
