@@ -4,7 +4,7 @@ import { validationResult } from 'express-validator'
 
 import config from '../config.js'
 
-import userModel from '../../app/modeles/user.js'
+import userModel from '../modeles/users.js'
 import { signupValidation, loginValidation } from '../validations.js'
 import authCheck from '../utils/authCheck.js'
 
@@ -98,11 +98,6 @@ export default (app) => {
 
     app.get('/auth/me', authCheck, async (req, res) => {
         try {
-            let user = await userModel.findById(req.userId)
-            if (!user) {
-                return res.status(404).json({status: 'client error'})
-            }
-            
             let { passwordHash, ...userData } = user._doc
             res.json({
                 status: 'succsess',
