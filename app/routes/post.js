@@ -41,7 +41,7 @@ export default (app) => {
             res.json({
                 // ... user
                 status: 'succsess',
-                posts: posts
+                posts: posts.reverse()
             })
         } catch (err) {
             console.log(err)
