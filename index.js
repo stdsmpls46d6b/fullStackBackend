@@ -1,6 +1,8 @@
 import express from 'express'
 import mongoose from 'mongoose'
 
+import cors from 'cors'
+
 import config from './app/config.js'
 import routes from './app/routes/routes.js'
 
@@ -12,6 +14,7 @@ mongoose
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 app.use('/med', express.static('med'))
 
 
