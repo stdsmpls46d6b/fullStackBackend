@@ -19,6 +19,8 @@ export default async (req, res, next) => {
             return res.status(401).json({status: 'client error'})
         }
 
+        req.userData = user
+
         next()
     } catch (err) {
         return res.status(401).json({status: 'client error', message: 'incorrect token'})

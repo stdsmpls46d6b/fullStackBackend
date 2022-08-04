@@ -90,7 +90,7 @@ export default (app) => {
 
     app.get('/auth/me', authCheck, async (req, res) => {
         try {
-            let { passwordHash, ...userData } = user._doc
+            let { passwordHash, ...userData } = req.userData._doc
             res.json({
                 status: 'succsess',
                 tokenData: req.userTokenData,
